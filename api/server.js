@@ -11,6 +11,17 @@ app.use(helmet());
 app.use(morgan("tiny"));
 app.use(express.json());
 
+// Connect to the database
+
+// API's
+app.use("/api/v1/register-login", (req, res) => {
+  console.log(req.body);
+
+  res.json({
+    message: "todo",
+  });
+});
+
 app.get("/", (req, res) => {
   res.json({
     message: "You have reached the e-commerce API",
