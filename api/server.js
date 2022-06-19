@@ -14,13 +14,8 @@ app.use(express.json());
 // Connect to the database
 
 // API's
-app.use("/api/v1/register-login", (req, res) => {
-  console.log(req.body);
-
-  res.json({
-    message: "todo",
-  });
-});
+import registerLoginRouter from "./src/routers/registerLogin.js";
+app.use("/api/v1/register-login", registerLoginRouter);
 
 app.get("/", (req, res) => {
   res.json({

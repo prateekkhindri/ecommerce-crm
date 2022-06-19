@@ -1,6 +1,6 @@
 # E-commerce admin CMS API server
 
-This is project is build for the admin to create and manage their e-commerce store.
+This project is build for the admin to create and manage their e-commerce store.
 
 This is only the UI part and the API is available at re `....`
 
@@ -23,6 +23,6 @@ Note: TODO: make sure that the admin registration api is protected after first a
 
 All registration and login API's follow the following patterns `{rootUrl}/api/v1/register-login`
 
-| #   | PATH | METHOD | IS PRIVATE | DESCRIPTION |
-| --- | ---- | ------ | ---------- | ----------- |
-| 1.  | `/`  | POST   | yes        | ----------- |
+| #   | PATH | METHOD | IS PRIVATE | DESCRIPTION                                                      |
+| --- | ---- | ------ | ---------- | ---------------------------------------------------------------- |
+| 1.  | `/`  | POST   | yes        | send user data fName, lName to create admin user in the database |
