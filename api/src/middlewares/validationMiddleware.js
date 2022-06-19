@@ -10,7 +10,7 @@ export const adminRegistrationValidation = (req, res, next) => {
     Dob: Joi.date(),
     email: Joi.string().email({ minDomainSegments: 2 }).max(50).required(),
     password: Joi.string().min(6).max(50).required(),
-    address: Joi.string().allow(""),
+    address: Joi.string().allow("").max(50),
   });
 
   const { error } = schema.validate(req.body);
