@@ -12,6 +12,8 @@ app.use(morgan("tiny"));
 app.use(express.json());
 
 // Connect to the database
+import { mongoConnect } from "./src/config/dbConfig.js";
+mongoConnect();
 
 // API's
 import registerLoginRouter from "./src/routers/registerLogin.js";

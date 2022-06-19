@@ -11,7 +11,7 @@ const route = express.Router();
 //   next();
 // });
 
-route.post("/", adminRegistrationValidation, async (req, res) => {
+route.post("/", adminRegistrationValidation, async (req, res, next) => {
   try {
     //   After receiving the data from the server
     // 1. Encrypt the password
@@ -22,6 +22,7 @@ route.post("/", adminRegistrationValidation, async (req, res) => {
     // 2. Call model to run the save query
     const result = await createNewAdmin(req.body);
     console.log(result);
+
     // 3. Unique URL endpoint and send it to the client
 
     res.json({
