@@ -25,7 +25,9 @@ route.post("/", adminRegistrationValidation, async (req, res, next) => {
 
     // 3. Unique URL endpoint and send it to the client
     res.json({
-      message: "todo",
+      status: "success",
+      message:
+        "We have sent you an email, please check your email and follow the instructions to activate your account",
     });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key error collection")) {
