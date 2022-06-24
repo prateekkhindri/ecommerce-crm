@@ -1,7 +1,8 @@
 import React from "react";
+import { MainLayout } from "../layout/MainLayout";
 
 const Registration = () => {
-  return <div>Registration Pages</div>;
+  return <MainLayout>Registration Pages</MainLayout>;
 };
 
 export default Registration;
