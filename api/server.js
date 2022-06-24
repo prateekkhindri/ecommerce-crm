@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use((error, req, res) => {
+app.use((error, req, res, next) => {
   console.log(error.message);
   const status = error.status || 400;
   res.status(status).json({

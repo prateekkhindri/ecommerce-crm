@@ -24,11 +24,15 @@ route.post("/", adminRegistrationValidation, async (req, res, next) => {
     console.log(result);
 
     // 3. Unique URL endpoint and send it to the client
-
     res.json({
       message: "todo",
     });
   } catch (error) {
+    if (error.message.includes("E11000 duplicate key error collection")) {
+      error.status = 200;
+      error.message =
+        "There is already a registered user with this email, please login with this email or use a different email";
+    }
     next(error);
   }
   //   console.log(req.body);
