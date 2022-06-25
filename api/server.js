@@ -3,10 +3,12 @@ import express from "express";
 const app = express();
 import helmet from "helmet";
 import morgan from "morgan";
+import cors from "cors";
 
 const PORT = process.env.PORT || 8000;
 
 // Use middlewares
+app.use(cors());
 app.use(helmet());
 app.use(morgan("tiny"));
 app.use(express.json());
