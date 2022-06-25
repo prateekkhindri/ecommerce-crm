@@ -3,6 +3,7 @@ import { hashPassword } from "../helpers/bcryptHelper.js";
 import { adminRegistrationValidation } from "../middlewares/validationMiddleware.js";
 import { createNewAdmin } from "../models/adminUser/AdminUserModel.js";
 const route = express.Router();
+import { v4 as uuidv4 } from "uuid";
 
 // route.all("/", (req, res, next) => {
 //   console.log(
@@ -19,15 +20,28 @@ route.post("/", adminRegistrationValidation, async (req, res, next) => {
     req.body.password = hashPassword(req.body.password);
     //   console.log(hashedPass);
 
+    const verificationCode = uuidv4();
+    req.body.verificationCode = verificationCode;
+
     // 2. Call model to run the save query
     const result = await createNewAdmin(req.body);
-    console.log(result);
+    // console.log(result);
 
     // 3. Unique URL endpoint and send it to the client
+
+    if (result?._id) {
+      console.log(result);
+
+      return res.json({
+        status: "success",
+        message:
+          "We have sent you an email, please check your email and follow the instructions to activate your account",
+      });
+    }
+
     res.json({
       status: "success",
-      message:
-        "We have sent you an email, please check your email and follow the instructions to activate your account",
+      message: "Unable to create a user at this moment, please try again later",
     });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key error collection")) {
