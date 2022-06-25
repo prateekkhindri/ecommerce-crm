@@ -9,7 +9,7 @@ export const MainLayout = ({ children }) => {
       <Header />
 
       {/* Main body */}
-      <main className="main">{children}</main>
+      <main className="main container">{children}</main>
 
       {/* Footer */}
       <Footer />
