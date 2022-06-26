@@ -4,6 +4,7 @@ import { adminRegistrationValidation } from "../middlewares/validationMiddleware
 import { createNewAdmin } from "../models/adminUser/AdminUserModel.js";
 const route = express.Router();
 import { v4 as uuidv4 } from "uuid";
+import { sendAdminUserVerificationMail } from "../helpers/emailHelper.js";
 
 // route.all("/", (req, res, next) => {
 //   console.log(
@@ -32,6 +33,7 @@ route.post("/", adminRegistrationValidation, async (req, res, next) => {
     if (result?._id) {
       console.log(result);
 
+      sendAdminUserVerificationMail(result);
       return res.json({
         status: "success",
         message:
