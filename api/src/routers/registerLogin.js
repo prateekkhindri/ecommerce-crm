@@ -1,7 +1,10 @@
 import express, { Router } from "express";
 import { hashPassword } from "../helpers/bcryptHelper.js";
 import { adminRegistrationValidation } from "../middlewares/validationMiddleware.js";
-import { createNewAdmin } from "../models/adminUser/AdminUserModel.js";
+import {
+  createNewAdmin,
+  updateAdmin,
+} from "../models/adminUser/AdminUserModel.js";
 const route = express.Router();
 import { v4 as uuidv4 } from "uuid";
 import { sendAdminUserVerificationMail } from "../helpers/emailHelper.js";
@@ -54,6 +57,36 @@ route.post("/", adminRegistrationValidation, async (req, res, next) => {
     next(error);
   }
   //   console.log(req.body);
+});
+
+route.patch("/", async (req, res, next) => {
+  try {
+    const { email, verificationCode } = req.body;
+    if (email && verificationCode) {
+      console.log(req.body);
+      const filter = { email, verificationCode };
+      const obj = {
+        status: "active",
+        verificationCode: "",
+      };
+
+      const result = await updateAdmin(filter, obj);
+
+      if (result?._id) {
+        return res.json({
+          status: "success",
+          message: "Your account has been activated, you may sign in now",
+        });
+      }
+    }
+
+    res.json({
+      status: "error",
+      message: "Invalid or expired link",
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default route;
