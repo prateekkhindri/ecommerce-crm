@@ -3,7 +3,7 @@ import loginReducer from "./pages/login-registration/loginRegisterSlice";
 
 const store = configureStore({
   reducer: {
-    userStore: { loginReducer },
+    userStore: loginReducer,
   },
 });
 
