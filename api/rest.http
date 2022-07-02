@@ -34,6 +34,6 @@ POST http://localhost:8000/api/v1/register-login/login
 Content-Type: application/json 
 
 {
-    "email": "a@a.com", 
+    "email": "a@gmail.com", 
     "password": "123456"
 }
