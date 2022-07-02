@@ -1,8 +1,12 @@
 import express, { Router } from "express";
-import { hashPassword } from "../helpers/bcryptHelper.js";
-import { adminRegistrationValidation } from "../middlewares/validationMiddleware.js";
+import { comparePassword, hashPassword } from "../helpers/bcryptHelper.js";
+import {
+  adminRegistrationValidation,
+  loginValidation,
+} from "../middlewares/validationMiddleware.js";
 import {
   createNewAdmin,
+  getOneAdmin,
   updateAdmin,
 } from "../models/adminUser/AdminUserModel.js";
 const route = express.Router();
@@ -85,6 +89,48 @@ route.patch("/", async (req, res, next) => {
       message: "Invalid or expired link",
     });
   } catch (error) {
+    next(error);
+  }
+});
+
+// Admin User Login
+route.post("/login", loginValidation, async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    const result = await getOneAdmin({ email });
+
+    if (result?._id) {
+      // Check if the password from the database and the one sent from the client matches
+
+      const isMatched = comparePassword(password, result.password);
+
+      result.password = undefined;
+
+      if (isMatched) {
+        return result.status === "active"
+          ? res.json({
+              status: "success",
+              message: "Login success",
+              result,
+            })
+          : res.json({
+              status: "success",
+              message:
+                "Your account is inactive, please check your email and follow the instructions to activate your account",
+            });
+      }
+    }
+
+    res.json({
+      status: "error",
+      message: "Invalid login credentials",
+    });
+
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+
     next(error);
   }
 });
