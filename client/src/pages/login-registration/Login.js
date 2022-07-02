@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginForm } from "../../components/login form/LoginForm";
+import { LoginForm } from "../../components/login-form/LoginForm";
 import { MainLayout } from "../../layout/MainLayout";
 
 const Login = () => {
