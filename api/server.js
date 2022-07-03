@@ -19,7 +19,9 @@ mongoConnect();
 
 // API's
 import registerLoginRouter from "./src/routers/registerLogin.js";
+import categoryRouter from "./src/routers/categoryRouter.js";
 app.use("/api/v1/register-login", registerLoginRouter);
+app.use("/api/v1/categories", categoryRouter);
 
 app.get("/", (req, res) => {
   res.json({
@@ -28,7 +30,7 @@ app.get("/", (req, res) => {
 });
 
 app.use((error, req, res, next) => {
-  console.log(error.message);
+  console.log(error);
   const status = error.status || 400;
   res.status(status).json({
     status: "error",
