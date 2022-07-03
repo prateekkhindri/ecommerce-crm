@@ -5,6 +5,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import EmailVerification from "./pages/login-registration/EmailVerification";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Categories from "./pages/categories/Categories";
+import Products from "./pages/products/Products";
+import PaymentMethod from "./pages/payment-method/PaymentMethod";
+import Users from "./pages/users/Users";
+import Orders from "./pages/orders/Orders";
+import AdminProfile from "./pages/admin-profile/AdminProfile";
+import Settings from "./pages/settings/Settings";
 
 function App() {
   return (
@@ -17,6 +24,13 @@ function App() {
 
           {/* Private routes todo */}
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/payment-method" element={<PaymentMethod />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/profile" element={<AdminProfile />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer theme="colored" />
