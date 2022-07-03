@@ -4,6 +4,7 @@ import Registration from "./pages/login-registration/Registration";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import EmailVerification from "./pages/login-registration/EmailVerification";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/admin-verification" element={<EmailVerification />} />
+
+          {/* Private routes todo */}
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer theme="colored" />
