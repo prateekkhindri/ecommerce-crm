@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import { ListGroup } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toggleShowSideMenu } from "../../pages/system-state/SystemSlice";
 
 export const SideMenu = () => {
-  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const { showSideMenu } = useSelector((state) => state.system);
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch
-      </Button>
-
-      <Offcanvas show={show} onHide={handleClose}>
+      <Offcanvas
+        show={showSideMenu}
+        onHide={() => dispatch(toggleShowSideMenu())}
+      >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>CMS Admin Panel</Offcanvas.Title>
         </Offcanvas.Header>
