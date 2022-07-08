@@ -38,13 +38,30 @@ Content-Type: application/json
 
 
 # ============ Category API
+
+### fetch categories
+GET http://localhost:8000/api/v1/categories/
+
 ### Post Category
-POST http://localhost:8000/api/v1/categories
+POST http://localhost:8000/api/v1/categories/
 Content-Type: application/json 
 
 {
     "status": "inactive",
-    "name": "Sneakers",
+    "name": "Sneakerskk",
+    "parentCatId": null
+
+}
+
+
+### Update Category
+PUT http://localhost:8000/api/v1/categories/
+Content-Type: application/json 
+
+{
+    "_id": "62c8b7136abfc597a4b81555",
+    "status": "active",
+    "name": "Mobile Phones",
     "parentCatId": null
 
 }
