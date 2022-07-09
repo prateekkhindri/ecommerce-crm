@@ -1,11 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategoriesAction } from "../../pages/categories/catAction";
+import {
+  deleteCategoryAction,
+  getCategoriesAction,
+} from "../../pages/categories/catAction";
 
 export const CategoryTable = () => {
   const dispatch = useDispatch();
+
+  //   Local state to delete
+  const [catToDelete, setCatToDelete] = useState([]);
 
   const { categories } = useSelector((state) => state.categories);
 
@@ -13,16 +19,50 @@ export const CategoryTable = () => {
     dispatch(getCategoriesAction());
   }, []);
 
+  const handleOnSelect = (e) => {
+    const { checked, value } = e.target;
+    console.log(checked, value);
+
+    if (value === "all") {
+      // Add or remove all the ids
+
+      checked
+        ? setCatToDelete(categories.map((item) => item._id))
+        : setCatToDelete([]);
+
+      return;
+    }
+
+    // Individual item click
+    if (checked) {
+      // Add Value to the list
+      setCatToDelete([...catToDelete, value]);
+    } else {
+      // Remove from the list
+
+      setCatToDelete(catToDelete.filter((id) => id !== value));
+    }
+  };
+
+  const handleOnDelete = () => {
+    if (window.confirm("Are you sure you want to delete this category ?")) {
+      dispatch(deleteCategoryAction({ ids: catToDelete }));
+      setCatToDelete([]);
+    }
+  };
+
+  console.log(catToDelete);
+
   return (
     <Row className="mt-5">
       <Col>
-        <h4>50 Products found</h4>
+        <p>{categories.length} categories found</p>
 
         <Table striped bordered hover>
           <thead>
             <tr>
               <th>
-                <Form.Check />
+                <Form.Check onChange={handleOnSelect} value="all" />
               </th>
               <th>Status</th>
               <th> Name</th>
@@ -31,10 +71,14 @@ export const CategoryTable = () => {
           </thead>
           <tbody>
             {categories.map((item) => (
-              <tr>
+              <tr key={item._id}>
                 <td>
                   {" "}
-                  <Form.Check />
+                  <Form.Check
+                    value={item._id}
+                    onChange={handleOnSelect}
+                    checked={catToDelete.includes(item._id)}
+                  />
                 </td>
                 <td>{item.status}</td>
                 <td>{item.name}</td>
@@ -45,6 +89,11 @@ export const CategoryTable = () => {
             ))}
           </tbody>
         </Table>
+        {catToDelete.length > 0 && (
+          <Button variant="danger" onClick={handleOnDelete} className="mb-2">
+            Delete selected {catToDelete.length} categories
+          </Button>
+        )}
       </Col>
     </Row>
   );

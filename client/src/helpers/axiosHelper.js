@@ -48,3 +48,8 @@ export const fetchCategory = (_id) => {
 export const postCategory = (obj) => {
   return apiProcessor("post", catEp, obj);
 };
+
+// Delete Categories
+export const deleteCategories = (obj) => {
+  return apiProcessor("post", catEp, obj);
+};
