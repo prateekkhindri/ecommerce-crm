@@ -6,6 +6,9 @@ const loginRegisterEP = rootUrl + "/register-login";
 // Creating the login endpoint
 const loginEP = loginRegisterEP + "/login";
 
+// Categories EP
+const catEp = rootUrl + "/categories";
+
 const apiProcessor = async (method, url, data) => {
   try {
     const response = await axios({
@@ -33,4 +36,10 @@ export const emailVerificationAdminUser = (obj) => {
 
 export const loginAdminUser = (obj) => {
   return apiProcessor("post", loginEP, obj);
+};
+
+// Category API endpoint
+export const fetchCategory = (_id) => {
+  const url = _id ? catEp + "/" + _id : catEp;
+  return apiProcessor("get", url);
 };
