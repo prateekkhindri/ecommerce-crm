@@ -5,6 +5,7 @@ import {
 } from "../middlewares/validationMiddleware.js";
 import {
   createNewCategory,
+  deleteCategoriesByIds,
   getCategories,
   getCategoryById,
   updateCategoryById,
@@ -84,6 +85,31 @@ router.put("/", updateCategoryValidation, async (req, res, next) => {
           status: "success",
           message:
             "Error, unable to update the category, please try again ;later",
+        });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Delete Category
+router.delete("/", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const { ids } = req.body;
+
+    // const { _id, ...rest } = req.body;
+    const result = await deleteCategoriesByIds(ids);
+
+    console.log(result);
+    result?.deletedCount
+      ? res.json({
+          status: "success",
+          message: "The category has been deleted",
+        })
+      : res.json({
+          status: "error",
+          message:
+            "Error, unable to delete the category, please try again later",
         });
   } catch (error) {
     next(error);
