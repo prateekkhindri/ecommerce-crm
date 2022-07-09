@@ -1,5 +1,4 @@
 import React from "react";
-import { Row } from "react-bootstrap";
 import { AddCatForm } from "../../components/add-cat-form/AddCatForm";
 import { CategoryTable } from "../../components/category-table/CategoryTable";
 import { AdminLayout } from "../../layout/AdminLayout";

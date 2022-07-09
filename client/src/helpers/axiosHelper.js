@@ -43,3 +43,8 @@ export const fetchCategory = (_id) => {
   const url = _id ? catEp + "/" + _id : catEp;
   return apiProcessor("get", url);
 };
+
+// Post category
+export const postCategory = (obj) => {
+  return apiProcessor("post", catEp, obj);
+};
