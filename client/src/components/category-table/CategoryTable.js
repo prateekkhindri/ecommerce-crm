@@ -62,7 +62,11 @@ export const CategoryTable = () => {
     setSelectedCat(catObj);
   };
 
-  console.log(catToDelete);
+  const parentCats = categories.filter((item) => !item.parentCatId);
+  const childCats = categories.filter((item) => item.parentCatId);
+  console.log(parentCats, childCats);
+
+  // console.log(catToDelete);
   return (
     <Row className="mt-5">
       <Col>
@@ -83,24 +87,54 @@ export const CategoryTable = () => {
             </tr>
           </thead>
           <tbody>
-            {categories.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  {" "}
-                  <Form.Check
-                    value={item._id}
-                    onChange={handleOnSelect}
-                    checked={catToDelete.includes(item._id)}
-                  />
-                </td>
-                <td>{item.status}</td>
-                <td>{item.name}</td>
-                <td>
-                  <Button variant="warning" onClick={() => handleOnEdit(item)}>
-                    Edit
-                  </Button>
-                </td>
-              </tr>
+            {parentCats.map((item) => (
+              <>
+                <tr key={item._id} className="bg-warning">
+                  <td>
+                    {" "}
+                    <Form.Check
+                      value={item._id}
+                      onChange={handleOnSelect}
+                      checked={catToDelete.includes(item._id)}
+                    />
+                  </td>
+                  <td>{item.status}</td>
+                  <td>{item.name}</td>
+                  <td>
+                    <Button
+                      variant="warning"
+                      onClick={() => handleOnEdit(item)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
+                </tr>
+                {childCats.map(
+                  (cat) =>
+                    cat.parentCatId === item._id && (
+                      <tr key={cat._id}>
+                        <td>
+                          {" "}
+                          <Form.Check
+                            value={cat._id}
+                            onChange={handleOnSelect}
+                            checked={catToDelete.includes(cat._id)}
+                          />
+                        </td>
+                        <td> --- {cat.status}</td>
+                        <td>{cat.name}</td>
+                        <td>
+                          <Button
+                            variant="warning"
+                            onClick={() => handleOnEdit(cat)}
+                          >
+                            Edit
+                          </Button>
+                        </td>
+                      </tr>
+                    )
+                )}
+              </>
             ))}
           </tbody>
         </Table>
