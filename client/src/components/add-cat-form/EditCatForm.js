@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { postCategoryAction } from "../../pages/categories/catAction";
+import {
+  postCategoryAction,
+  updateCategoryAction,
+} from "../../pages/categories/catAction";
 import { CustomInput } from "../custom-input/CustomInput";
 
 const initialState = {
@@ -38,6 +41,10 @@ export const EditCatForm = ({ selectedCat }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+
+    const { name, _id, parentCatId, status } = form;
+    dispatch(updateCategoryAction({ name, _id, parentCatId, status }));
+
     console.log(form);
   };
 
@@ -69,15 +76,18 @@ export const EditCatForm = ({ selectedCat }) => {
                 onChange={handleOnChange}
               >
                 <option value="">Select Parent Category</option>
-                {categories.map((item) => (
-                  <option
-                    key={item._id}
-                    value={item._id}
-                    selected={item._id === form.parentCatId}
-                  >
-                    {item.name}
-                  </option>
-                ))}
+                {categories.map(
+                  (item) =>
+                    item.parentCatId === null && (
+                      <option
+                        key={item._id}
+                        value={item._id}
+                        selected={item._id === form.parentCatId}
+                      >
+                        {item.name}
+                      </option>
+                    )
+                )}
               </Form.Select>
             </FormGroup>
           </Col>

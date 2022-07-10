@@ -62,11 +62,14 @@ export const AddCatForm = () => {
                 onChange={handleOnChange}
               >
                 <option value="">Select Parent Category</option>
-                {categories.map((item) => (
-                  <option key={item._id} value={item._id}>
-                    {item.name}
-                  </option>
-                ))}
+                {categories.map(
+                  (item) =>
+                    item.parentCatId === null && (
+                      <option key={item._id} value={item._id}>
+                        {item.name}
+                      </option>
+                    )
+                )}
               </Form.Select>
             </FormGroup>
           </Col>

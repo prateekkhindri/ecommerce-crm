@@ -51,5 +51,10 @@ export const postCategory = (obj) => {
 
 // Delete Categories
 export const deleteCategories = (obj) => {
-  return apiProcessor("post", catEp, obj);
+  return apiProcessor("delete", catEp, obj);
+};
+
+// Update/Edit category
+export const updateCategories = (obj) => {
+  return apiProcessor("put", catEp, obj);
 };
