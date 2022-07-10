@@ -74,13 +74,13 @@ export const newCategoryValidation = (req, res, next) => {
 };
 
 export const updateCategoryValidation = (req, res, next) => {
-  console.log(req.body);
-
+  // console.log(req.body);
+  req.body.parentCatId = req.body.parentCatId ? req.body.parentCatId : null;
   const schema = Joi.object({
     _id: Joi.string().max(50).required(),
     status: Joi.string().required(),
     name: Joi.string().min(6).max(50).required(),
-    parentCatId: Joi.string().allow(null, ""),
+    parentCatId: Joi.string().allow(null),
   });
 
   const { error } = schema.validate(req.body);
