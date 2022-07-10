@@ -41,6 +41,17 @@ export const CategoryTable = () => {
 
     // Individual item click
     if (checked) {
+      // Check if the value exists in the parentCatId
+      const hasChildCat = categories.filter(
+        (item) => item.parentCatId === value
+      );
+
+      if (hasChildCat.length) {
+        return alert(
+          "This category has dependent child categories, please delete the child categories or reassign them to another parent category"
+        );
+      }
+
       // Add Value to the list
       setCatToDelete([...catToDelete, value]);
     } else {
