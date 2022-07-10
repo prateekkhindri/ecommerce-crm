@@ -6,12 +6,18 @@ import {
   deleteCategoryAction,
   getCategoriesAction,
 } from "../../pages/categories/catAction";
+import { toggleShowModal } from "../../pages/system-state/SystemSlice";
+import { EditCatForm } from "../add-cat-form/EditCatForm";
+import { CustomModal } from "../custom-modal/CustomModal";
 
 export const CategoryTable = () => {
   const dispatch = useDispatch();
 
   //   Local state to delete
   const [catToDelete, setCatToDelete] = useState([]);
+
+  // Local state to hold the selected category value
+  const [selectedCat, setSelectedCat] = useState({});
 
   const { categories } = useSelector((state) => state.categories);
 
@@ -51,11 +57,18 @@ export const CategoryTable = () => {
     }
   };
 
-  console.log(catToDelete);
+  const handleOnEdit = (catObj) => {
+    dispatch(toggleShowModal(true));
+    setSelectedCat(catObj);
+  };
 
+  console.log(catToDelete);
   return (
     <Row className="mt-5">
       <Col>
+        <CustomModal title={"Update Category"}>
+          <EditCatForm selectedCat={selectedCat} />
+        </CustomModal>
         <p>{categories.length} categories found</p>
 
         <Table striped bordered hover>
@@ -83,7 +96,9 @@ export const CategoryTable = () => {
                 <td>{item.status}</td>
                 <td>{item.name}</td>
                 <td>
-                  <Button variant="warning">Edit</Button>
+                  <Button variant="warning" onClick={() => handleOnEdit(item)}>
+                    Edit
+                  </Button>
                 </td>
               </tr>
             ))}
