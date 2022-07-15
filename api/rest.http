@@ -80,3 +80,34 @@ Content-Type: application/json
     
 
 }
+
+
+
+#========== Payment method API
+### Fetch Payment method
+GET http://localhost:8000/api/v1/payment-method
+
+
+### Fetch Payment method
+POST http://localhost:8000/api/v1/payment-method
+Content-Type: application/json
+
+{
+
+
+}
+
+### Fetch Payment method
+PUT http://localhost:8000/api/v1/payment-method
+Content-Type: application/json
+
+{
+
+
+}
+
+
+### Fetch Payment method
+DELETE http://localhost:8000/api/v1/payment-method_idofthepaymentmethod
+
+
