@@ -93,8 +93,9 @@ POST http://localhost:8000/api/v1/payment-method
 Content-Type: application/json
 
 {
-
-
+    "status": "inactive",
+    "name": "Pay by bank transfer",
+    "description": "Please eft to the following accounts , BSB: 33333, A/C: 12345 and put the order id as a reference"
 }
 
 ### Fetch Payment method

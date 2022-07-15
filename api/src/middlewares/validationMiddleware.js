@@ -96,3 +96,26 @@ export const updateCategoryValidation = (req, res, next) => {
 
   next();
 };
+
+export const paymentMethodValidation = (req, res, next) => {
+  // console.log(req.body);
+  // req.body.parentCatId = req.body.parentCatId ? req.body.parentCatId : null;
+  const schema = Joi.object({
+    status: Joi.string().min(3).max(50).required(),
+    name: Joi.string().min(3).max(50).required(),
+    description: Joi.string().max(1000).allow(null),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  //   console.log(error);
+
+  if (error) {
+    return res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
+
+  next();
+};
