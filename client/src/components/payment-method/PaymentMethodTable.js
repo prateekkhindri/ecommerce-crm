@@ -24,7 +24,7 @@ export const PaymentMethodTable = () => {
     }
   };
 
-  console.log(paymentMethods);
+  // console.log(paymentMethods);
   return (
     <div className="table">
       <div>{paymentMethods.length} Payment methods found</div>
