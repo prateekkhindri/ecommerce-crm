@@ -94,8 +94,8 @@ Content-Type: application/json
 
 {
     "status": "inactive",
-    "name": "Pay by bank transfer",
-    "description": "Please eft to the following accounts , BSB: 33333, A/C: 12345 and put the order id as a reference"
+    "name": "Pay by credit card",
+    "description": ""
 }
 
 ### Fetch Payment method
@@ -103,12 +103,15 @@ PUT http://localhost:8000/api/v1/payment-method
 Content-Type: application/json
 
 {
-
+    "_id": "62d201e987b31813a4ca0860",
+    "status": "active",
+    "name": "Pay by credit card --",
+    "description": "dlsfdjsfkj"
 
 }
 
 
 ### Fetch Payment method
-DELETE http://localhost:8000/api/v1/payment-method_idofthepaymentmethod
+DELETE http://localhost:8000/api/v1/payment-method/62d201e987b31813a4ca0860
 
 

@@ -18,11 +18,11 @@ export const getSinglePaymentMethod = (filter) => {
 };
 
 // Both filter and update must be an object
-export const updatePaymentMethod = (filter, update) => {
-  return PaymentMethodSchema.findOne(filter, update, { new: true });
+export const updatePaymentMethodByID = ({ _id, ...update }) => {
+  return PaymentMethodSchema.findByIdAndUpdate(_id, update, { new: true });
 };
 
 // Delete
-export const deletePaymentMethod = (filter) => {
-  return PaymentMethodSchema.findOneAndDelete(filter);
+export const deletePaymentMethodById = (_id) => {
+  return PaymentMethodSchema.findByIdAndDelete(_id);
 };
