@@ -9,6 +9,9 @@ const loginEP = loginRegisterEP + "/login";
 // Categories EP
 const catEp = rootUrl + "/categories";
 
+// Payment method EP
+const paymentMethodEp = rootUrl + "/payment-method";
+
 const apiProcessor = async (method, url, data) => {
   try {
     const response = await axios({
@@ -57,4 +60,10 @@ export const deleteCategories = (obj) => {
 // Update/Edit category
 export const updateCategories = (obj) => {
   return apiProcessor("put", catEp, obj);
+};
+
+// Payment method endpoints
+// Fetch/Get endpoint
+export const fetchPaymentMethods = () => {
+  return apiProcessor("get", paymentMethodEp);
 };
