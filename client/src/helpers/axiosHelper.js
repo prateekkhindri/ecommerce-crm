@@ -67,3 +67,8 @@ export const updateCategories = (obj) => {
 export const fetchPaymentMethods = () => {
   return apiProcessor("get", paymentMethodEp);
 };
+
+// Delete method
+export const deletePaymentMethod = (_id) => {
+  return apiProcessor("delete", paymentMethodEp + "/" + _id);
+};

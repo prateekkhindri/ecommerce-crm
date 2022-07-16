@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getPaymentMethodsAction } from "../../pages/payment-method/paymentMethodAction";
+import {
+  deletePaymentMethodAction,
+  getPaymentMethodsAction,
+} from "../../pages/payment-method/paymentMethodAction";
 
 export const PaymentMethodTable = () => {
   const dispatch = useDispatch();
@@ -14,14 +17,17 @@ export const PaymentMethodTable = () => {
 
   const handleOnDelete = (_id) => {
     if (window.confirm("Are you sure you want to delete ?")) {
-      console.log(_id);
+      //   console.log(_id);
+
+      // dispatch action
+      dispatch(deletePaymentMethodAction(_id));
     }
   };
 
   console.log(paymentMethods);
   return (
     <div className="table">
-      <div>5 Payment methods found!</div>
+      <div>{paymentMethods.length} Payment methods found</div>
       <Table striped bordered hover>
         <thead>
           <tr>
