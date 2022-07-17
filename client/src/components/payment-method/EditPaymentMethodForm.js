@@ -6,7 +6,7 @@ import { postPaymentMethodAction } from "../../pages/payment-method/paymentMetho
 import { CustomInput } from "../custom-input/CustomInput";
 import { CustomModal } from "../custom-modal/CustomModal";
 
-export const AddPaymentMethodForm = () => {
+export const EditPaymentMethodForm = () => {
   const dispatch = useDispatch();
 
   const initialState = {
@@ -37,7 +37,7 @@ export const AddPaymentMethodForm = () => {
 
     dispatch(postPaymentMethodAction(form));
     setForm(initialState);
-    // console.log(form);
+    console.log(form);
   };
 
   const inputFields = [
@@ -61,13 +61,13 @@ export const AddPaymentMethodForm = () => {
     {
       type: "submit",
       className: "btn btn-primary",
-      value: "Add payment method",
+      value: "Update payment method",
     },
   ];
 
   return (
     <div>
-      <CustomModal title={"Add new payment method"}>
+      <CustomModal title={"Update new payment method"}>
         <Form onSubmit={handleOnSubmit}>
           <FormGroup controlId="formGridState">
             <Form.Check

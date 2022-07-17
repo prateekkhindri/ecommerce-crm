@@ -9,10 +9,10 @@ import { toggleShowModal } from "../system-state/SystemSlice";
 
 const PaymentMethod = () => {
   const dispatch = useDispatch();
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState("");
 
   const handleOnShowForm = () => {
-    setShowForm(true);
+    setShowForm("add");
     dispatch(toggleShowModal(true));
   };
   return (
@@ -25,13 +25,13 @@ const PaymentMethod = () => {
         </Button>
       </div>
 
-      {showForm && (
+      {/* {showForm && (
         <CustomModal title={"Add new payment method"}>
           <AddPaymentMethodForm />
         </CustomModal>
-      )}
+      )} */}
 
-      <PaymentMethodTable />
+      <PaymentMethodTable showForm={showForm} setShowForm={setShowForm} />
     </AdminLayout>
   );
 };

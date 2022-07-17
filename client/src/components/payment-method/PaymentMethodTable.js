@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deletePaymentMethodAction,
   getPaymentMethodsAction,
 } from "../../pages/payment-method/paymentMethodAction";
+import { toggleShowModal } from "../../pages/system-state/SystemSlice";
+import { CustomModal } from "../custom-modal/CustomModal";
+import { AddPaymentMethodForm } from "./AddPaymentMethodForm";
+import { EditPaymentMethodForm } from "./EditPaymentMethodForm";
 
-export const PaymentMethodTable = () => {
+export const PaymentMethodTable = ({ showForm, setShowForm }) => {
   const dispatch = useDispatch();
+
+  // const [showForm, setShowForm] = useState(false);
 
   const { paymentMethods } = useSelector((state) => state.paymentMethod);
 
@@ -24,9 +30,26 @@ export const PaymentMethodTable = () => {
     }
   };
 
+  const handleOnEdit = (_id) => {
+    console.log(_id);
+    setShowForm("edit");
+    dispatch(toggleShowModal(true));
+  };
+
+  const whichForm = {
+    add: <AddPaymentMethodForm />,
+    edit: <EditPaymentMethodForm />,
+  };
+
   // console.log(paymentMethods);
   return (
     <div className="table">
+      {showForm && (
+        <CustomModal title={"Update new payment method"}>
+          {whichForm[showForm]}
+        </CustomModal>
+      )}
+
       <div>{paymentMethods.length} Payment methods found</div>
       <Table striped bordered hover>
         <thead>
@@ -46,7 +69,12 @@ export const PaymentMethodTable = () => {
               <td>{item.description}</td>
 
               <td>
-                <Button variant="warning">Edit</Button>{" "}
+                <Button
+                  variant="warning"
+                  onClick={() => handleOnEdit(item._id)}
+                >
+                  Edit
+                </Button>{" "}
                 <Button
                   variant="danger"
                   onClick={() => handleOnDelete(item._id)}

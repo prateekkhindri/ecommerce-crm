@@ -8,7 +8,7 @@ import { setPaymentMethods } from "./paymentMethodSlice";
 
 export const getPaymentMethodsAction = () => async (dispatch) => {
   const { status, result } = await fetchPaymentMethods();
-  console.log(result);
+  // console.log(result);
   status === "success" && dispatch(setPaymentMethods(result));
 };
 
