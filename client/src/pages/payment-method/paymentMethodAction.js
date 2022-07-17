@@ -3,6 +3,7 @@ import {
   deletePaymentMethod,
   fetchPaymentMethods,
   postPaymentMethod,
+  updatePaymentMethod,
 } from "../../helpers/axiosHelper";
 import { setPaymentMethods } from "./paymentMethodSlice";
 
@@ -26,6 +27,18 @@ export const postPaymentMethodAction = (obj) => async (dispatch) => {
 
 export const deletePaymentMethodAction = (_id) => async (dispatch) => {
   const responsePromise = deletePaymentMethod(_id);
+
+  toast.promise(responsePromise, { pending: "Please wait..." });
+
+  const { status, message } = await responsePromise;
+
+  toast[status](message);
+
+  status === "success" && dispatch(getPaymentMethodsAction());
+};
+
+export const updatePaymentMethodAction = (_id) => async (dispatch) => {
+  const responsePromise = updatePaymentMethod(_id);
 
   toast.promise(responsePromise, { pending: "Please wait..." });
 

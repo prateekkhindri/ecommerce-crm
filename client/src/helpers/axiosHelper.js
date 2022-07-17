@@ -77,3 +77,7 @@ export const deletePaymentMethod = (_id) => {
 export const postPaymentMethod = (obj) => {
   return apiProcessor("post", paymentMethodEp, obj);
 };
+
+export const updatePaymentMethod = (obj) => {
+  return apiProcessor("put", paymentMethodEp, obj);
+};

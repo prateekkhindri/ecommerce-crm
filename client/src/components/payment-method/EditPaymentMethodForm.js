@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, FormGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { postPaymentMethodAction } from "../../pages/payment-method/paymentMethodAction";
+import {
+  postPaymentMethodAction,
+  updatePaymentMethodAction,
+} from "../../pages/payment-method/paymentMethodAction";
 
 import { CustomInput } from "../custom-input/CustomInput";
 import { CustomModal } from "../custom-modal/CustomModal";
 
-export const EditPaymentMethodForm = () => {
+export const EditPaymentMethodForm = ({ selectedPaymentMethod }) => {
   const dispatch = useDispatch();
 
   const initialState = {
@@ -16,6 +19,10 @@ export const EditPaymentMethodForm = () => {
   };
 
   const [form, setForm] = useState(initialState);
+
+  useEffect(() => {
+    setForm(selectedPaymentMethod);
+  }, [selectedPaymentMethod]);
 
   const handleOnChange = (e) => {
     let { name, value, checked } = e.target;
@@ -35,9 +42,11 @@ export const EditPaymentMethodForm = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(postPaymentMethodAction(form));
-    setForm(initialState);
     console.log(form);
+    const { __v, updatedAt, createdAt, ...rest } = form;
+
+    dispatch(updatePaymentMethodAction(rest));
+    setForm(initialState);
   };
 
   const inputFields = [
@@ -64,6 +73,8 @@ export const EditPaymentMethodForm = () => {
       value: "Update payment method",
     },
   ];
+
+  console.log(form);
 
   return (
     <div>

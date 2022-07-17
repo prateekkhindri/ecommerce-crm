@@ -15,6 +15,8 @@ export const PaymentMethodTable = ({ showForm, setShowForm }) => {
 
   // const [showForm, setShowForm] = useState(false);
 
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState({});
+
   const { paymentMethods } = useSelector((state) => state.paymentMethod);
 
   useEffect(() => {
@@ -30,25 +32,24 @@ export const PaymentMethodTable = ({ showForm, setShowForm }) => {
     }
   };
 
-  const handleOnEdit = (_id) => {
-    console.log(_id);
+  const handleOnEdit = (item) => {
+    // console.log(_id);
+    setSelectedPaymentMethod(item);
     setShowForm("edit");
     dispatch(toggleShowModal(true));
   };
 
   const whichForm = {
     add: <AddPaymentMethodForm />,
-    edit: <EditPaymentMethodForm />,
+    edit: (
+      <EditPaymentMethodForm selectedPaymentMethod={selectedPaymentMethod} />
+    ),
   };
 
   // console.log(paymentMethods);
   return (
     <div className="table">
-      {showForm && (
-        <CustomModal title={"Update new payment method"}>
-          {whichForm[showForm]}
-        </CustomModal>
-      )}
+      {showForm && whichForm[showForm]}
 
       <div>{paymentMethods.length} Payment methods found</div>
       <Table striped bordered hover>
@@ -69,10 +70,7 @@ export const PaymentMethodTable = ({ showForm, setShowForm }) => {
               <td>{item.description}</td>
 
               <td>
-                <Button
-                  variant="warning"
-                  onClick={() => handleOnEdit(item._id)}
-                >
+                <Button variant="warning" onClick={() => handleOnEdit(item)}>
                   Edit
                 </Button>{" "}
                 <Button
