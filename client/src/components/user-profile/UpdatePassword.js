@@ -10,18 +10,48 @@ const initialState = {
 export const UpdatePassword = () => {
   const [form, setForm] = useState(initialState);
 
+  const [error, setError] = useState("");
+
+  const [disableBtn, setDisableBtn] = useState(true);
+
   const handleOnChange = (e) => {
     let { name, value } = e.target;
+
+    if (name === "password" || name === "confirmPassword") {
+      setError("");
+
+      !disableBtn && setDisableBtn(true);
+    }
 
     setForm({
       ...form,
       [name]: value,
     });
+
+    if (name === "confirmPassword") {
+      const { password } = form;
+
+      password !== value && setError("Password does not match");
+      password.length < 6 &&
+        setError("Password must be longer than 6 characters");
+
+      !/[a-z]/.test(password) &&
+        setError("Password must contain a lower case character");
+      !/[A-Z]/.test(password) &&
+        setError("Password must contain an upper case character");
+      !/[0-9]/.test(password) && setError("Password must contain a number");
+
+      !password && setError("New password must be provided");
+    }
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form);
+  };
+
+  const btnDisable = () => {
+    !error && setDisableBtn(false);
   };
 
   const inputFields = [
@@ -47,11 +77,7 @@ export const UpdatePassword = () => {
       required: true,
       type: "password",
       value: form.confirmPassword,
-    },
-    {
-      type: "submit",
-      value: "Update Password",
-      className: "btn btn-danger",
+      onBlur: btnDisable,
     },
   ];
   return (
@@ -63,6 +89,26 @@ export const UpdatePassword = () => {
         {inputFields.map((item, i) => (
           <CustomInput key={i} {...item} onChange={handleOnChange} />
         ))}
+
+        <Form.Group>
+          <Form.Text muted>
+            New password should contain at least one uppercase, one lowercase, a
+            number and a minimum of 6 characters
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mt-3">
+          <Form.Text className="text-danger fs-3 fw-bolder">{error}</Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mt-5">
+          <Form.Control
+            type="submit"
+            value="Update Password"
+            className="btn btn-danger mb-2"
+            disabled={disableBtn}
+          />
+        </Form.Group>
       </Form>
     </div>
   );
