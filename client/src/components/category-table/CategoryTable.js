@@ -75,7 +75,7 @@ export const CategoryTable = () => {
 
   const parentCats = categories.filter((item) => !item.parentCatId);
   const childCats = categories.filter((item) => item.parentCatId);
-  console.log(parentCats, childCats);
+  // console.log(parentCats, childCats);
 
   // console.log(catToDelete);
   return (
