@@ -10,6 +10,7 @@ import {
   PHONE,
   SHORTSTR,
   STATUS,
+  ADDRESS,
 } from "./validationConstant.js";
 
 export const adminRegistrationValidation = (req, res, next) => {
@@ -90,11 +91,26 @@ export const updatePaymentMethod = (req, res, next) => {
   joiValidator(schema, req, res, next);
 };
 
+// Admin Profile
 export const updatePasswordValidation = (req, res, next) => {
   const schema = Joi.object({
     email: EMAIL,
     currentPassword: PASSWORD,
     password: PASSWORD,
+  });
+
+  joiValidator(schema, req, res, next);
+};
+
+export const updateAdminProfileValidation = (req, res, next) => {
+  const schema = Joi.object({
+    fName: FNAME,
+    lName: LNAME,
+    dob: DOB,
+    phone: PHONE,
+    email: EMAIL,
+    currentPassword: PASSWORD,
+    address: ADDRESS,
   });
 
   joiValidator(schema, req, res, next);

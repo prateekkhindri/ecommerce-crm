@@ -129,3 +129,18 @@ Content-Type : application/json
 }
 
 
+### Update user admin profile page
+PATCH http://localhost:8000/api/v1/admin 
+Content-Type : application/json 
+
+{
+    "address" : "3 Sydney",
+    "dob": "1998-12-10",
+    "email": "something@something.com",
+    "fName": "prateek",
+    "lName": "smith",
+    "phone": "040000000",
+    "currentPassword": "aA11111"
+}
+
+
