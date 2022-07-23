@@ -37,6 +37,25 @@ Content-Type: application/json
 }
 
 
+### Request OTP for the password reset
+POST http://localhost:8000/api/v1/register-login/otp-request
+Content-Type: application/json 
+
+{
+    "email": "a@gmail.com"
+}
+
+
+### Reset new password
+PATCH http://localhost:8000/api/v1/register-login/password
+Content-Type: application/json 
+
+{
+    "email": "a@gmail.com",
+    "otp": "992318",
+    "password": "bB12345"
+}
+
 # ============ Category API
 
 ### fetch categories

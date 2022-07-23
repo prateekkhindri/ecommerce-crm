@@ -11,7 +11,13 @@ import {
 } from "../models/adminUser/AdminUserModel.js";
 const route = express.Router();
 import { v4 as uuidv4 } from "uuid";
-import { sendAdminUserVerificationMail } from "../helpers/emailHelper.js";
+import {
+  emailPasswordResetOTP,
+  sendAdminUserVerificationMail,
+} from "../helpers/emailHelper.js";
+import router from "./categoryRouter.js";
+import { randomNumberGenerator } from "../utils/randomGenerator.js";
+import { insertSession } from "../models/sessions/SessionModel.js";
 
 // route.all("/", (req, res, next) => {
 //   console.log(
@@ -134,5 +140,53 @@ route.post("/login", loginValidation, async (req, res, next) => {
     next(error);
   }
 });
+
+// Request OTP for password reset
+route.post("/otp-request", async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    console.log(email);
+
+    if (email.length > 4 && email.length < 50) {
+      // Find if the user exists for the given email
+      const user = await getOneAdmin({ email });
+      if (user?._id) {
+        // Generate a random OTP
+        const otpLength = 6;
+        const otp = randomNumberGenerator(otpLength);
+        const obj = {
+          token: otp,
+          associate: email,
+          type: "updatePassword",
+        };
+        const result = await insertSession(obj);
+        console.log(result, "fdsfd");
+
+        if (result?._id) {
+          // Send the OTP to the users email
+
+          const mailInfo = {
+            fName: user.fName,
+            email: user.email,
+            otp,
+          };
+          emailPasswordResetOTP(mailInfo);
+          // Send the response to the client
+        }
+      }
+    }
+
+    res.json({
+      status: "success",
+      message:
+        "If this email exists in our system, we will send you an OTP, please check your email and follow the instructions",
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
+// Reset the new password
 
 export default route;

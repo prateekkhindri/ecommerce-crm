@@ -95,3 +95,35 @@ export const profileUpdateNotification = (userObj) => {
 
   sendMail(emailInfo);
 };
+
+export const emailPasswordResetOTP = (obj) => {
+  console.log(obj);
+  const emailInfo = {
+    from: '"ABC store" ' + process.env.MAIL_USER, // sender address
+    to: obj.email, // list of receivers
+    subject: "OTP for password reset", // Subject line
+    text: `Hi ${obj.fName} Please use the following OTP to reset your password: ${obj.otp}`, // plain text body
+    html: `
+    <p>Hello ${obj.fName}</p>
+    <br/>
+    <br/>
+    <p>Please use the following OTP to reset your password: </p>
+    <br/>
+    <br/>
+    <span style="color:red; font-size: 2rem; font-weight: bolder;">${obj.otp}</span>
+    <br/>
+    <br/>
+
+    <p>
+    ---------------
+
+    <br/>
+    ABC store
+    </p>
+    
+    
+    `, // html body
+  };
+
+  sendMail(emailInfo);
+};

@@ -11,7 +11,7 @@ import {
 } from "../models/adminUser/AdminUserModel.js";
 const router = express.Router();
 
-// Get the admin information
+// Get the admin information (TO DO)
 router.get("/", (req, res, next) => {
   try {
     res.json({
