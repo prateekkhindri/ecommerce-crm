@@ -33,8 +33,8 @@ export const loginValidation = (req, res, next) => {
   // console.log(req.body);
 
   const schema = Joi.object({
-    EMAIL: Joi.string().email({ minDomainSegments: 2 }).max(50).required(),
-    PASSWORD: Joi.string().min(6).max(50).required(),
+    email: EMAIL,
+    password: PASSWORD,
   });
 
   joiValidator(schema, req, res, next);

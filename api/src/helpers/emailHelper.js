@@ -35,7 +35,7 @@ export const sendAdminUserVerificationMail = (userObj) => {
   const emailInfo = {
     from: '"ABC store" ' + process.env.MAIL_USER, // sender address
     to: userObj.email, // list of receivers
-    subject: "Account varification required", // Subject line
+    subject: "Account verification required", // Subject line
     text: `Hi ${userObj.fName} please follow the link to activate your admin account. ${link}`, // plain text body
     html: `
     <p>Hello ${userObj.fName}</p>
@@ -45,6 +45,38 @@ export const sendAdminUserVerificationMail = (userObj) => {
     <br/>
     <br/>
     <a href = "${link}">${link}</a>
+
+
+    <br/>
+    <br/>
+
+    <p>
+    ---------------
+
+    <br/>
+    xyz ecommerce
+    </p>
+    
+    
+    `, // html body
+  };
+
+  sendMail(emailInfo);
+};
+
+export const profileUpdateNotification = (userObj) => {
+  const emailInfo = {
+    from: '"ABC store" ' + process.env.MAIL_USER, // sender address
+    to: userObj.email, // list of receivers
+    subject: "Your profile has been updated", // Subject line
+    text: `Hi ${userObj.fName} we have just noticed that your profile has been updated. If this wasn't you, please contact us immediately`, // plain text body
+    html: `
+    <p>Hello ${userObj.fName}</p>
+    <br/>
+    <br/>
+    <p>We have just noticed that your profile has been updated. If this wasn't you, please contact us immediately</p>
+    <br/>
+    <br/>
 
 
     <br/>
