@@ -6,7 +6,7 @@ import paymentMethodReducer from "./pages/payment-method/paymentMethodSlice";
 
 const store = configureStore({
   reducer: {
-    userStore: loginReducer,
+    adminUser: loginReducer,
     system: systemReducer,
     categories: categoryReducer,
     paymentMethod: paymentMethodReducer,

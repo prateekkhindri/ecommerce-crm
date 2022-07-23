@@ -12,6 +12,9 @@ const catEp = rootUrl + "/categories";
 // Payment method EP
 const paymentMethodEp = rootUrl + "/payment-method";
 
+// Admin EP
+const adminEp = rootUrl + "/admin";
+
 const apiProcessor = async (method, url, data) => {
   try {
     const response = await axios({
@@ -24,7 +27,7 @@ const apiProcessor = async (method, url, data) => {
   } catch (error) {
     return {
       status: "error",
-      message: "error.message",
+      message: error.message,
     };
   }
 };
@@ -80,4 +83,9 @@ export const postPaymentMethod = (obj) => {
 
 export const updatePaymentMethod = (obj) => {
   return apiProcessor("put", paymentMethodEp, obj);
+};
+
+// Admin user API
+export const updateAdminPassword = (obj) => {
+  return apiProcessor("patch", adminEp, obj);
 };
