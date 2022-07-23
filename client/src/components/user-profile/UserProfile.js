@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAdminProfileAction } from "../../pages/admin-profile/adminAction";
 import { CustomInput } from "../custom-input/CustomInput";
 
 const initialState = {
@@ -9,9 +11,16 @@ const initialState = {
   email: "",
   dob: "",
   address: "",
+  currentPassword: "",
 };
 export const UserProfile = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
+  const { user } = useSelector((state) => state.adminUser);
+
+  useEffect(() => {
+    setForm(user);
+  }, [user]);
 
   const handleOnChange = (e) => {
     let { name, value } = e.target;
@@ -25,6 +34,19 @@ export const UserProfile = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form);
+
+    const { fName, lName, email, phone, address, currentPassword, dob } = form;
+    dispatch(
+      updateAdminProfileAction({
+        fName,
+        lName,
+        email,
+        phone,
+        address,
+        currentPassword,
+        dob,
+      })
+    );
   };
 
   const inputFields = [
@@ -73,6 +95,13 @@ export const UserProfile = () => {
       placeholder: "3 Sydney",
       type: "text",
       value: form.address,
+    },
+    {
+      label: "Current Password",
+      name: "currentPassword",
+      type: "password",
+      value: form.currentPassword,
+      required: true,
     },
     {
       className: "btn btn-warning",

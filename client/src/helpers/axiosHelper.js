@@ -89,3 +89,7 @@ export const updatePaymentMethod = (obj) => {
 export const updateAdminPassword = (obj) => {
   return apiProcessor("patch", adminEp, obj);
 };
+
+export const updateAdminProfile = (obj) => {
+  return apiProcessor("put", adminEp, obj);
+};
