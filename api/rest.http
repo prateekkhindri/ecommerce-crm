@@ -115,3 +115,17 @@ Content-Type: application/json
 DELETE http://localhost:8000/api/v1/payment-method/62d201e987b31813a4ca0860
 
 
+
+# ========= Admin API'S
+
+### Update password from the profile page
+PATCH http://localhost:8000/api/v1/admin 
+Content-Type : application/json 
+
+{
+    "currentPassword" : "sfsdefgh",
+    "password": "adcdefgh",
+    "email": "something@something.com"
+}
+
+

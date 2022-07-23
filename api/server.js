@@ -21,10 +21,12 @@ mongoConnect();
 import registerLoginRouter from "./src/routers/registerLogin.js";
 import categoryRouter from "./src/routers/categoryRouter.js";
 import paymentMethodRouter from "./src/routers/paymentMethodRouter.js";
+import adminRouter from "./src/routers/adminRouter.js";
 
 app.use("/api/v1/register-login", registerLoginRouter);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/payment-method", paymentMethodRouter);
+app.use("/api/v1/admin", adminRouter);
 
 app.get("/", (req, res) => {
   res.json({
