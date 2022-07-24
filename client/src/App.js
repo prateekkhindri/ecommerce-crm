@@ -12,6 +12,7 @@ import Users from "./pages/users/Users";
 import Orders from "./pages/orders/Orders";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
 import Settings from "./pages/settings/Settings";
+import ResetPassword from "./pages/reset-password/ResetPassword";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/admin-verification" element={<EmailVerification />} />
+          <Route path="/password-reset" element={<ResetPassword />} />
 
           {/* Private routes todo */}
           <Route path="/dashboard" element={<Dashboard />} />
