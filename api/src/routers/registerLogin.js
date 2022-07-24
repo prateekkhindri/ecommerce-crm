@@ -3,6 +3,7 @@ import { comparePassword, hashPassword } from "../helpers/bcryptHelper.js";
 import {
   adminRegistrationValidation,
   loginValidation,
+  resetPasswordValidation,
 } from "../middlewares/validationMiddleware.js";
 import {
   createNewAdmin,
@@ -13,11 +14,15 @@ const route = express.Router();
 import { v4 as uuidv4 } from "uuid";
 import {
   emailPasswordResetOTP,
+  profileUpdateNotification,
   sendAdminUserVerificationMail,
 } from "../helpers/emailHelper.js";
 import router from "./categoryRouter.js";
 import { randomNumberGenerator } from "../utils/randomGenerator.js";
-import { insertSession } from "../models/sessions/SessionModel.js";
+import {
+  deleteSession,
+  insertSession,
+} from "../models/sessions/SessionModel.js";
 
 // route.all("/", (req, res, next) => {
 //   console.log(
@@ -188,5 +193,46 @@ route.post("/otp-request", async (req, res, next) => {
 });
 
 // Reset the new password
+route.patch("/password", resetPasswordValidation, async (req, res, next) => {
+  try {
+    console.log(req.body);
+
+    const { email, otp, password } = req.body;
+
+    const filter = {
+      token: otp,
+      associate: email,
+      type: "updatePassword",
+    };
+    console.log(filter);
+    // First check if the otp email combination exists in the session table and delete it
+    const isDeleted = await deleteSession(filter);
+    console.log(isDeleted);
+    if (isDeleted?._id) {
+      // Encrypt the password
+      const obj = {
+        password: hashPassword(password),
+      };
+      // Update the password in the user table
+      const result = await updateAdmin({ email }, obj);
+
+      if (result?._id) {
+        // Send email notification of the account update
+        profileUpdateNotification(result);
+        return res.json({
+          status: "success",
+          message: "Your password has been updated, you may login now",
+        });
+      }
+    }
+
+    res.json({
+      status: "error",
+      message: "Unable to reset the password, please try again later",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default route;

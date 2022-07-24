@@ -11,6 +11,7 @@ import {
   SHORTSTR,
   STATUS,
   ADDRESS,
+  OTP,
 } from "./validationConstant.js";
 
 export const adminRegistrationValidation = (req, res, next) => {
@@ -111,6 +112,16 @@ export const updateAdminProfileValidation = (req, res, next) => {
     email: EMAIL,
     currentPassword: PASSWORD,
     address: ADDRESS,
+  });
+
+  joiValidator(schema, req, res, next);
+};
+
+export const resetPasswordValidation = (req, res, next) => {
+  const schema = Joi.object({
+    email: EMAIL,
+    otp: OTP.required(),
+    password: PASSWORD,
   });
 
   joiValidator(schema, req, res, next);
