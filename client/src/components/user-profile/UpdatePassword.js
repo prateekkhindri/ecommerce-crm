@@ -104,6 +104,7 @@ export const UpdatePassword = () => {
         ))}
 
         <Form.Group>
+          {" "}
           <Form.Text muted>
             New password should contain at least one uppercase, one lowercase, a
             number and a minimum of 6 characters

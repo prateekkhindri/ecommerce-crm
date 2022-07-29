@@ -52,6 +52,10 @@ export const LoginForm = () => {
       <Button variant="primary" type="submit">
         Login
       </Button>
+
+      <div className="text-right">
+        Forgot Password? <a href="/password-reset">Reset</a>
+      </div>
     </Form>
   );
 };
